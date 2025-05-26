@@ -8,26 +8,7 @@ export const loadCommentsFromStorage = (key: string): InlineComment[] => {
             const parsedComments = JSON.parse(storedComments);
             if (Array.isArray(parsedComments)) {
                 return parsedComments.map((commentData: unknown) => {
-                    // Walidacja i transformacja danych komentarza
-                    if (
-                        typeof commentData === 'object' &&
-                        commentData !== null &&
-                        'id' in commentData && typeof commentData.id === 'string' &&
-                        'author' in commentData && typeof commentData.author === 'string' &&
-                        'text' in commentData && typeof commentData.text === 'string' &&
-                        'createdAt' in commentData && (typeof commentData.createdAt === 'string' || typeof commentData.createdAt === 'number') &&
-                        // Opcjonalne pole position
-                        (!('position' in commentData) || 
-                         (typeof commentData.position === 'object' && commentData.position !== null &&
-                          (!('from' in commentData.position) || typeof commentData.position.from === 'number') &&
-                          (!('to' in commentData.position) || typeof commentData.position.to === 'number') &&
-                          (!('textFragment' in commentData.position) || typeof commentData.position.textFragment === 'string') &&
-                          (!('path' in commentData.position) || typeof commentData.position.path === 'string') &&
-                          (!('startOffset' in commentData.position) || typeof commentData.position.startOffset === 'number') &&
-                          (!('endOffset' in commentData.position) || typeof commentData.position.endOffset === 'number')
-                         )
-                        )
-                    ) {
+                    if (typeof commentData === 'object') {
                         const typedCommentData = commentData as Partial<InlineComment> & { createdAt: string | number };
                         return {
                             id: typedCommentData.id!,

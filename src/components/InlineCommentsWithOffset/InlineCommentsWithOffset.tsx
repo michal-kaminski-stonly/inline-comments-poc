@@ -147,7 +147,6 @@ const InlineCommentsWithOffset = () => {
             }
         },
         onCreate: ({editor: createdEditor}) => {
-            console.log(`[EditorWithoutDataId] Editor onCreate. Document size: ${createdEditor.state.doc.content.size}. initialContent loaded: ${initialContent !== undefined}`);
             if (initialContent !== undefined) {
                 setIsEditorInitialized(true);
             }
